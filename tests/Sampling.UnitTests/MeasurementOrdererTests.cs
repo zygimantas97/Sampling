@@ -1,8 +1,4 @@
-﻿using FluentAssertions;
-using Objectivity.AutoFixture.XUnit2.AutoMoq.Attributes;
-using Sampling.UnitTests.TestExtensions;
-
-namespace Sampling.UnitTests;
+﻿namespace Sampling.UnitTests;
 
 public class MeasurementOrdererTests
 {

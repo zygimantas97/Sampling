@@ -1,6 +1,4 @@
-﻿using AutoFixture;
-
-namespace Sampling.UnitTests.Factories;
+﻿namespace Sampling.UnitTests.Factories;
 
 internal static class MeasurementFactory
 {

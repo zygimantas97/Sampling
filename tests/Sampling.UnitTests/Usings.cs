@@ -1,1 +1,9 @@
+global using AutoFixture;
+global using AutoFixture.Xunit2;
+global using FluentAssertions;
+global using FluentAssertions.Execution;
+global using Moq;
+global using Objectivity.AutoFixture.XUnit2.AutoMoq.Attributes;
+global using Sampling.UnitTests.Factories;
+global using Sampling.UnitTests.TestExtensions;
 global using Xunit;

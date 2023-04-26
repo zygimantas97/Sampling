@@ -1,11 +1,4 @@
-﻿using AutoFixture;
-using FluentAssertions;
-using FluentAssertions.Execution;
-using Objectivity.AutoFixture.XUnit2.AutoMoq.Attributes;
-using Sampling.UnitTests.Factories;
-using Sampling.UnitTests.TestExtensions;
-
-namespace Sampling.UnitTests;
+﻿namespace Sampling.UnitTests;
 
 public class MeasurementClassifierTests
 {
