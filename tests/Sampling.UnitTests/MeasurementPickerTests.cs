@@ -8,13 +8,33 @@ public class MeasurementPickerTests
 {
     [Theory]
     [AutoMockData]
+    public void PickLastOrDefaultFromInterval_WhenMeasurementsNull_ReturnsNull(
+        DateTime startOfInterval,
+        DateTime endOfInterval,
+        MeasurementPicker measurementPicker)
+    {
+        // Arrange
+        IEnumerable<Measurement> measurements = null;
+
+        // Act
+        var pickedMeasurement = measurementPicker.PickLastOrDefaultFromInterval(
+            measurements,
+            startOfInterval,
+            endOfInterval);
+
+        // Assert
+        pickedMeasurement.Should().BeNull();
+    }
+
+    [Theory]
+    [AutoMockData]
     public void PickLastOrDefaultFromInterval_WhenNoMeasurementsAtAll_ReturnsNull(
         DateTime startOfInterval,
         DateTime endOfInterval,
         MeasurementPicker measurementPicker)
     {
         // Arrange
-        IEnumerable<Measurement> measurements = Enumerable.Empty<Measurement>();
+        var measurements = Enumerable.Empty<Measurement>();
 
         // Act
         var pickedMeasurement = measurementPicker.PickLastOrDefaultFromInterval(

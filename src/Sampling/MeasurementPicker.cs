@@ -14,6 +14,6 @@ public class MeasurementPicker
         IEnumerable<Measurement> measurements,
         DateTime startOfInterval,
         DateTime endOfInterval) =>
-        measurements.LastOrDefault(
+        measurements?.LastOrDefault(
             measurement => measurement.Time > startOfInterval && measurement.Time <= endOfInterval);
 }
