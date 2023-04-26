@@ -20,6 +20,7 @@ public class MeasurementOrdererTests
         var measurementsAfterOrdering = measurementOrderer.OrderByTimeAscending(measurements);
 
         // Assert
+        measurementsAfterOrdering.Should().NotBeNull();
         measurementsAfterOrdering.Should().BeEquivalentTo(orderedMeasurements, o => o.WithStrictOrdering());
     }
 }
