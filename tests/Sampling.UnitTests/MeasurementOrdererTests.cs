@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Objectivity.AutoFixture.XUnit2.AutoMoq.Attributes;
+using Sampling.UnitTests.TestExtensions;
 
 namespace Sampling.UnitTests;
 
@@ -12,7 +13,7 @@ public class MeasurementOrdererTests
         MeasurementOrderer measurementOrderer)
     {
         // Arrange
-        var shuffledMeasurements = measurements.OrderBy(_ => Guid.NewGuid());
+        var shuffledMeasurements = measurements.Shuffle();
         var orderedMeasurements = measurements.OrderBy(measurement => measurement.Time);
 
         // Act
