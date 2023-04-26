@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Sampling;
 
-namespace Sampling
+public enum MeasurementType
 {
-    internal class MeasurementType
-    {
-    }
+    Temperature,
+    HeartRate,
+    SpO2
 }
