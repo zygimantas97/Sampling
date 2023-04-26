@@ -4,6 +4,7 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using Moq;
 using Objectivity.AutoFixture.XUnit2.AutoMoq.Attributes;
+using Sampling.UnitTests.Factories;
 
 namespace Sampling.UnitTests;
 
@@ -54,7 +55,9 @@ public class MeasurementSelectorTests
         MeasurementSelector measurementSelector)
     {
         // Arrange
-        var measurements = new List<Measurement> { CreateMeasurement(startOfMeasurements.AddSeconds(-1)) };
+        var measurementJustBeforeStartOfFirstInterval =
+            MeasurementFactory.CreateMeasurementWithTime(startOfMeasurements.AddSeconds(-1));
+        var measurements = new List<Measurement> { measurementJustBeforeStartOfFirstInterval };
 
         // Act
         var selectedMeasurements = measurementSelector.SelectMeasurements(
@@ -74,7 +77,8 @@ public class MeasurementSelectorTests
         MeasurementSelector measurementSelector)
     {
         // Arrange
-        var measurements = new List<Measurement> { CreateMeasurement(startOfMeasurements.AddSeconds(1)) };
+        var measurementJustAfterStartOfFirstInterval = MeasurementFactory.CreateMeasurementWithTime(startOfMeasurements.AddSeconds(1));
+        var measurements = new List<Measurement> { measurementJustAfterStartOfFirstInterval };
         measurementPickerMock
             .Setup(picker => picker.PickLastOrDefaultFromInterval(
                 measurements,
@@ -101,8 +105,8 @@ public class MeasurementSelectorTests
         MeasurementSelector measurementSelector)
     {
         // Arrange
-        var measurementJustAfterStartOfFirstInterval = CreateMeasurement(startOfMeasurements.AddSeconds(1));
-        var measurementJustBeforeEndOfFirstInterval = CreateMeasurement(startOfMeasurements.AddMinutes(5).AddSeconds(-1));
+        var measurementJustAfterStartOfFirstInterval = MeasurementFactory.CreateMeasurementWithTime(startOfMeasurements.AddSeconds(1));
+        var measurementJustBeforeEndOfFirstInterval = MeasurementFactory.CreateMeasurementWithTime(startOfMeasurements.AddMinutes(5).AddSeconds(-1));
         var measurements = new List<Measurement> { measurementJustAfterStartOfFirstInterval, measurementJustBeforeEndOfFirstInterval };
         measurementPickerMock
             .Setup(picker => picker.PickLastOrDefaultFromInterval(
@@ -132,8 +136,8 @@ public class MeasurementSelectorTests
         MeasurementSelector measurementSelector)
     {
         // Arrange
-        var measurementJustAfterStartOfFirstInterval = CreateMeasurement(startOfMeasurements.AddSeconds(1));
-        var measurementMatchingEndOfFirstInterval = CreateMeasurement(startOfMeasurements.AddMinutes(5));
+        var measurementJustAfterStartOfFirstInterval = MeasurementFactory.CreateMeasurementWithTime(startOfMeasurements.AddSeconds(1));
+        var measurementMatchingEndOfFirstInterval = MeasurementFactory.CreateMeasurementWithTime(startOfMeasurements.AddMinutes(5));
         var measurements = new List<Measurement> { measurementJustAfterStartOfFirstInterval, measurementMatchingEndOfFirstInterval };
         measurementPickerMock
             .Setup(picker => picker.PickLastOrDefaultFromInterval(
@@ -163,8 +167,8 @@ public class MeasurementSelectorTests
         MeasurementSelector measurementSelector)
     {
         // Arrange
-        var measurementJustAfterStartOfFirstInterval = CreateMeasurement(startOfMeasurements.AddSeconds(1));
-        var measurementJustAfterEndOfFirstInterval = CreateMeasurement(startOfMeasurements.AddMinutes(5).AddSeconds(1));
+        var measurementJustAfterStartOfFirstInterval = MeasurementFactory.CreateMeasurementWithTime(startOfMeasurements.AddSeconds(1));
+        var measurementJustAfterEndOfFirstInterval = MeasurementFactory.CreateMeasurementWithTime(startOfMeasurements.AddMinutes(5).AddSeconds(1));
         var measurements = new List<Measurement> { measurementJustAfterStartOfFirstInterval, measurementJustAfterEndOfFirstInterval };
         measurementPickerMock
             .Setup(picker => picker.PickLastOrDefaultFromInterval(
@@ -183,12 +187,5 @@ public class MeasurementSelectorTests
         selectedMeasurements.Should().NotBeNull();
         selectedMeasurements.Count().Should().Be(2);
         selectedMeasurements.Should().OnlyContain(measurement => measurement == pickedMeasurement);
-    }
-
-    private Measurement CreateMeasurement(DateTime time)
-    {
-        var measurement = new Fixture().Create<Measurement>();
-        measurement.Time = time;
-        return measurement;
     }
 }

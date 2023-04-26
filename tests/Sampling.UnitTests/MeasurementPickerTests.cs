@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using Objectivity.AutoFixture.XUnit2.AutoMoq.Attributes;
+using Sampling.UnitTests.Factories;
 
 namespace Sampling.UnitTests;
 
@@ -56,8 +57,8 @@ public class MeasurementPickerTests
         var endOfInterval = startOfInterval.AddMinutes(1);
         var measurements = new List<Measurement>
         {
-            CreateMeasurement(startOfInterval.AddSeconds(-1)),
-            CreateMeasurement(endOfInterval.AddSeconds(1))
+            MeasurementFactory.CreateMeasurementWithTime(startOfInterval.AddSeconds(-1)),
+            MeasurementFactory.CreateMeasurementWithTime(endOfInterval.AddSeconds(1))
         };
 
         // Act
@@ -78,7 +79,7 @@ public class MeasurementPickerTests
         // Arrange
         var startOfInterval = DateTime.UtcNow;
         var endOfInterval = startOfInterval.AddMinutes(1);
-        var measurementInInterval = CreateMeasurement(startOfInterval.AddSeconds(1));
+        var measurementInInterval = MeasurementFactory.CreateMeasurementWithTime(startOfInterval.AddSeconds(1));
         var measurements = new List<Measurement>
         {
             measurementInInterval
@@ -103,8 +104,8 @@ public class MeasurementPickerTests
         // Arrange
         var startOfInterval = DateTime.UtcNow;
         var endOfInterval = startOfInterval.AddMinutes(1);
-        var measurementJustAfterStartOfInterval = CreateMeasurement(startOfInterval.AddSeconds(1));
-        var measurementJustBeforeEndOfInterval = CreateMeasurement(endOfInterval.AddSeconds(-1));
+        var measurementJustAfterStartOfInterval = MeasurementFactory.CreateMeasurementWithTime(startOfInterval.AddSeconds(1));
+        var measurementJustBeforeEndOfInterval = MeasurementFactory.CreateMeasurementWithTime(endOfInterval.AddSeconds(-1));
         var measurements = new List<Measurement>
         {
             measurementJustAfterStartOfInterval,
@@ -130,8 +131,8 @@ public class MeasurementPickerTests
         // Arrange
         var startOfInterval = DateTime.UtcNow;
         var endOfInterval = startOfInterval.AddMinutes(1);
-        var measurementJustAfterStartOfInterval = CreateMeasurement(startOfInterval.AddSeconds(1));
-        var measurementMatchingEndOfInterval = CreateMeasurement(endOfInterval);
+        var measurementJustAfterStartOfInterval = MeasurementFactory.CreateMeasurementWithTime(startOfInterval.AddSeconds(1));
+        var measurementMatchingEndOfInterval = MeasurementFactory.CreateMeasurementWithTime(endOfInterval);
         var measurements = new List<Measurement>
         {
             measurementJustAfterStartOfInterval,
@@ -147,12 +148,5 @@ public class MeasurementPickerTests
         // Assert
         pickedMeasurement.Should().NotBeNull();
         pickedMeasurement.Should().Be(measurementMatchingEndOfInterval);
-    }
-
-    private Measurement CreateMeasurement(DateTime time)
-    {
-        var measurement = new Fixture().Create<Measurement>();
-        measurement.Time = time;
-        return measurement;
     }
 }

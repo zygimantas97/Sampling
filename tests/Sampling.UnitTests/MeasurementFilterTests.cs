@@ -2,6 +2,7 @@
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Objectivity.AutoFixture.XUnit2.AutoMoq.Attributes;
+using Sampling.UnitTests.Factories;
 
 namespace Sampling.UnitTests;
 
@@ -14,9 +15,9 @@ public class MeasurementFilterTests
         MeasurementFilter measurementFilter)
     {
         // Arrange
-        var measurementBeforeThresholdTime = CreateMeasurement(thresholdTime.AddSeconds(-1));
-        var measurementOnThresholdTime = CreateMeasurement(thresholdTime);
-        var measurementAfterThresholdTime = CreateMeasurement(thresholdTime.AddSeconds(1));
+        var measurementBeforeThresholdTime = MeasurementFactory.CreateMeasurementWithTime(thresholdTime.AddSeconds(-1));
+        var measurementOnThresholdTime = MeasurementFactory.CreateMeasurementWithTime(thresholdTime);
+        var measurementAfterThresholdTime = MeasurementFactory.CreateMeasurementWithTime(thresholdTime.AddSeconds(1));
         var measurements = new List<Measurement>()
             { measurementBeforeThresholdTime, measurementOnThresholdTime, measurementAfterThresholdTime };
 
@@ -30,12 +31,5 @@ public class MeasurementFilterTests
         filteredMeasurements.Should().Contain(measurementAfterThresholdTime);
         filteredMeasurements.Should().NotContain(measurementOnThresholdTime);
         filteredMeasurements.Should().NotContain(measurementBeforeThresholdTime);
-    }
-
-    private Measurement CreateMeasurement(DateTime time)
-    {
-        var measurement = new Fixture().Create<Measurement>();
-        measurement.Time = time;
-        return measurement;
     }
 }
