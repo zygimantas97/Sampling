@@ -10,7 +10,7 @@ public class MeasurementClassifierTests
 {
     [Theory]
     [AutoMockData]
-    public void ClassifyByType_(
+    public void ClassifyByType_ReturnsMeasurementsClassifiedByType(
         uint countOfMeasurements,
         MeasurementClassifier measurementClassifier)
     {
