@@ -2,7 +2,7 @@
 
 public interface IMeasurementSelector
 {
-    IEnumerable<Measurement> SelectMeasurements(
+    IEnumerable<Measurement> Select(
         IEnumerable<Measurement> measurements,
         DateTime startOfMeasurements);
 }
@@ -18,7 +18,7 @@ public class MeasurementSelector
         _measurementPicker = measurementPicker;
     }
 
-    public IEnumerable<Measurement> SelectMeasurements(
+    public IEnumerable<Measurement> Select(
         IEnumerable<Measurement> measurements,
         DateTime startOfMeasurements) =>
         measurements == null || measurements.Count() == 0

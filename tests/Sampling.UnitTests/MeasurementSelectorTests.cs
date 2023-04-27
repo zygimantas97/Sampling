@@ -12,7 +12,7 @@ public class MeasurementSelectorTests
         IEnumerable<Measurement> measurements = null;
 
         // Act
-        var selectedMeasurements = measurementSelector.SelectMeasurements(
+        var selectedMeasurements = measurementSelector.Select(
             measurements,
             startOfMeasurements);
 
@@ -31,7 +31,7 @@ public class MeasurementSelectorTests
         var measurements = Enumerable.Empty<Measurement>();
 
         // Act
-        var selectedMeasurements = measurementSelector.SelectMeasurements(
+        var selectedMeasurements = measurementSelector.Select(
             measurements,
             startOfMeasurements);
 
@@ -52,7 +52,7 @@ public class MeasurementSelectorTests
         var measurements = new List<Measurement> { measurementJustBeforeStartOfFirstInterval };
 
         // Act
-        var selectedMeasurements = measurementSelector.SelectMeasurements(
+        var selectedMeasurements = measurementSelector.Select(
             measurements,
             startOfMeasurements);
 
@@ -79,7 +79,7 @@ public class MeasurementSelectorTests
             .Returns((Measurement)null);
 
         // Act
-        var selectedMeasurements = measurementSelector.SelectMeasurements(
+        var selectedMeasurements = measurementSelector.Select(
             measurements,
             startOfMeasurements);
 
@@ -108,7 +108,7 @@ public class MeasurementSelectorTests
             .Returns(pickedMeasurement);
 
         // Act
-        var selectedMeasurements = measurementSelector.SelectMeasurements(
+        var selectedMeasurements = measurementSelector.Select(
             measurements,
             startOfMeasurements);
 
@@ -139,7 +139,7 @@ public class MeasurementSelectorTests
             .Returns(pickedMeasurement);
 
         // Act
-        var selectedMeasurements = measurementSelector.SelectMeasurements(
+        var selectedMeasurements = measurementSelector.Select(
             measurements,
             startOfMeasurements);
 
@@ -170,7 +170,7 @@ public class MeasurementSelectorTests
             .Returns(pickedMeasurement);
 
         // Act
-        var selectedMeasurements = measurementSelector.SelectMeasurements(
+        var selectedMeasurements = measurementSelector.Select(
             measurements,
             startOfMeasurements);
 
