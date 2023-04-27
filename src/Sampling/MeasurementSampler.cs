@@ -6,7 +6,7 @@ public interface IMeasurementSampler
 {
     IDictionary<MeasurementType, IEnumerable<Measurement>> Sample(
         DateTime startOfSampling,
-        IEnumerable<Measurement> measurements);
+        IEnumerable<Measurement>? measurements);
 }
 
 public class MeasurementSampler : IMeasurementSampler
@@ -30,7 +30,7 @@ public class MeasurementSampler : IMeasurementSampler
 
     public IDictionary<MeasurementType, IEnumerable<Measurement>> Sample(
         DateTime startOfSampling,
-        IEnumerable<Measurement> measurements)
+        IEnumerable<Measurement>? measurements)
     {
         var filteredMeasurements = _measurementFilter.FilterMeasurementsAfter(measurements, startOfSampling);
         var classifiedMeasurements = _measurementClassifier.ClassifyByType(filteredMeasurements);
