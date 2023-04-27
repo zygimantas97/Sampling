@@ -1,4 +1,6 @@
-﻿namespace Sampling.UnitTests;
+﻿using Sampling.Model;
+
+namespace Sampling;
 
 public interface IMeasurementSampler
 {

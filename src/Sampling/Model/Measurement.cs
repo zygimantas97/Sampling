@@ -1,4 +1,4 @@
-﻿namespace Sampling;
+﻿namespace Sampling.Model;
 
 public class Measurement
 {

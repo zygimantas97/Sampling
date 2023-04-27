@@ -1,4 +1,6 @@
-﻿namespace Sampling.UnitTests.Factories;
+﻿using Sampling.Model;
+
+namespace Sampling.UnitTests.Factories;
 
 internal static class MeasurementFactory
 {

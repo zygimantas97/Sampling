@@ -1,4 +1,6 @@
-﻿namespace Sampling;
+﻿using Sampling.Model;
+
+namespace Sampling;
 
 public interface IMeasurementOrderer
 {
