@@ -24,7 +24,7 @@ public class MeasurementPickerTests
 
     [Theory]
     [AutoMockData]
-    public void PickLastOrDefaultFromInterval_WhenNoMeasurementsAtAll_ReturnsNull(
+    public void PickLastOrDefaultFromInterval_WhenMeasurementsEmpty_ReturnsNull(
         DateTime startOfInterval,
         DateTime endOfInterval,
         MeasurementPicker measurementPicker)
@@ -143,5 +143,34 @@ public class MeasurementPickerTests
         // Assert
         pickedMeasurement.Should().NotBeNull();
         pickedMeasurement.Should().Be(measurementMatchingEndOfInterval);
+    }
+
+    [Theory]
+    [AutoMockData]
+    public void PickLastOrDefaultFromInterval_WhenSeveralMeasurementsInTwoIntervals_ReturnsLastMeasurementOfFirstInterval(
+        MeasurementPicker measurementPicker)
+    {
+        // Arrange
+        var startOfInterval = DateTime.UtcNow;
+        var endOfInterval = startOfInterval.AddMinutes(1);
+        var measurementJustAfterStartOfFirstInterval = MeasurementFactory.CreateMeasurementWithTime(startOfInterval.AddSeconds(1));
+        var measurementJustBeforeEndOfFirstInterval = MeasurementFactory.CreateMeasurementWithTime(endOfInterval.AddSeconds(-1));
+        var measurementJustAfterStartOfSecondInterval = MeasurementFactory.CreateMeasurementWithTime(endOfInterval.AddSeconds(1));
+        var measurements = new List<Measurement>
+        {
+            measurementJustAfterStartOfFirstInterval,
+            measurementJustBeforeEndOfFirstInterval,
+            measurementJustAfterStartOfSecondInterval
+        };
+
+        // Act
+        var pickedMeasurement = measurementPicker.PickLastOrDefaultFromInterval(
+            measurements,
+            startOfInterval,
+            endOfInterval);
+
+        // Assert
+        pickedMeasurement.Should().NotBeNull();
+        pickedMeasurement.Should().Be(measurementJustBeforeEndOfFirstInterval);
     }
 }

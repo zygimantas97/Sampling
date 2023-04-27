@@ -4,7 +4,40 @@ public class MeasurementFilterTests
 {
     [Theory]
     [AutoMockData]
-    public void FilterMeasurementsAfter_ReturnsMeasurementsAfterThresholdTime(
+    public void FilterMeasurementsAfter_WhenMeasurementsNull_ReturnsNull(
+        DateTime thresholdTime,
+        MeasurementFilter measurementFilter)
+    {
+        // Arrange
+        IEnumerable<Measurement> measurements = null;
+
+        // Act
+        var measurementsAfterFiltering = measurementFilter.FilterMeasurementsAfter(measurements, thresholdTime);
+
+        // Assert
+        measurementsAfterFiltering.Should().BeNull();
+    }
+
+    [Theory]
+    [AutoMockData]
+    public void FilterMeasurementsAfter_WhenMeasurementsEmpty_ReturnsEmptyEnumerable(
+        DateTime thresholdTime,
+        MeasurementFilter measurementFilter)
+    {
+        // Arrange
+        var measurements = Enumerable.Empty<Measurement>();
+
+        // Act
+        var measurementsAfterFiltering = measurementFilter.FilterMeasurementsAfter(measurements, thresholdTime);
+
+        // Assert
+        measurementsAfterFiltering.Should().NotBeNull();
+        measurementsAfterFiltering.Should().BeEmpty();
+    }
+
+    [Theory]
+    [AutoMockData]
+    public void FilterMeasurementsAfter_WhenMeasurementsNotEmpty_ReturnsMeasurementsAfterThresholdTime(
         DateTime thresholdTime,
         MeasurementFilter measurementFilter)
     {
@@ -16,14 +49,14 @@ public class MeasurementFilterTests
             { measurementBeforeThresholdTime, measurementOnThresholdTime, measurementAfterThresholdTime };
 
         // Act
-        var filteredMeasurements = measurementFilter.FilterMeasurementsAfter(measurements, thresholdTime);
+        var measurementsAfterFiltering = measurementFilter.FilterMeasurementsAfter(measurements, thresholdTime);
 
         // Assert
         using var _ = new AssertionScope();
-        filteredMeasurements.Should().NotBeNull();
-        filteredMeasurements.Count().Should().Be(1);
-        filteredMeasurements.Should().Contain(measurementAfterThresholdTime);
-        filteredMeasurements.Should().NotContain(measurementOnThresholdTime);
-        filteredMeasurements.Should().NotContain(measurementBeforeThresholdTime);
+        measurementsAfterFiltering.Should().NotBeNull();
+        measurementsAfterFiltering.Count().Should().Be(1);
+        measurementsAfterFiltering.Should().Contain(measurementAfterThresholdTime);
+        measurementsAfterFiltering.Should().NotContain(measurementOnThresholdTime);
+        measurementsAfterFiltering.Should().NotContain(measurementBeforeThresholdTime);
     }
 }

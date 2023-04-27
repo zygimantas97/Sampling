@@ -23,7 +23,7 @@ public class MeasurementSelectorTests
 
     [Theory]
     [AutoMockData]
-    public void SelectMeasurements_WhenNoMeasurementsAtAll_ReturnsEmptyEnumerable(
+    public void SelectMeasurements_WhenMeasurementsEmpty_ReturnsEmptyEnumerable(
         DateTime startOfMeasurements,
         MeasurementSelector measurementSelector)
     {

@@ -37,7 +37,7 @@ public class MeasurementSampler
             group => _measurementOrderer.OrderByTimeAscending(group.Value));
         var selectedMeasurements = orderedMeasurements.ToDictionary(
             group => group.Key,
-            group => _measurementSelector.SelectMeasurements(group.Value, startOfSampling));
+            group => _measurementSelector.Select(group.Value, startOfSampling));
         return selectedMeasurements;
     }
 }
