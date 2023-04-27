@@ -9,7 +9,7 @@ public interface IMeasurementSelector
         DateTime startOfMeasurements);
 }
 
-public class MeasurementSelector
+public class MeasurementSelector : IMeasurementSelector
 {
     private const int MeasurementIntervalInMinutes = 5;
 

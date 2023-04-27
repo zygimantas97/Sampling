@@ -81,6 +81,8 @@ public class MeasurementPickerTests
         {
             measurementInInterval
         };
+        var expectedPickedMeasurement =
+            MeasurementFactory.CreateMeasurementWithTime(measurementInInterval, endOfInterval);
 
         // Act
         var pickedMeasurement = measurementPicker.PickLastOrDefaultFromInterval(
@@ -90,7 +92,7 @@ public class MeasurementPickerTests
 
         // Assert
         pickedMeasurement.Should().NotBeNull();
-        pickedMeasurement.Should().Be(measurementInInterval);
+        pickedMeasurement.Should().BeEquivalentTo(expectedPickedMeasurement);
     }
 
     [Theory]
@@ -108,6 +110,8 @@ public class MeasurementPickerTests
             measurementJustAfterStartOfInterval,
             measurementJustBeforeEndOfInterval
         };
+        var expectedPickedMeasurement =
+            MeasurementFactory.CreateMeasurementWithTime(measurementJustBeforeEndOfInterval, endOfInterval);
 
         // Act
         var pickedMeasurement = measurementPicker.PickLastOrDefaultFromInterval(
@@ -117,7 +121,7 @@ public class MeasurementPickerTests
 
         // Assert
         pickedMeasurement.Should().NotBeNull();
-        pickedMeasurement.Should().Be(measurementJustBeforeEndOfInterval);
+        pickedMeasurement.Should().BeEquivalentTo(expectedPickedMeasurement);
     }
 
     [Theory]
@@ -135,6 +139,8 @@ public class MeasurementPickerTests
             measurementJustAfterStartOfInterval,
             measurementMatchingEndOfInterval
         };
+        var expectedPickedMeasurement =
+            MeasurementFactory.CreateMeasurementWithTime(measurementMatchingEndOfInterval, endOfInterval);
 
         // Act
         var pickedMeasurement = measurementPicker.PickLastOrDefaultFromInterval(
@@ -144,7 +150,7 @@ public class MeasurementPickerTests
 
         // Assert
         pickedMeasurement.Should().NotBeNull();
-        pickedMeasurement.Should().Be(measurementMatchingEndOfInterval);
+        pickedMeasurement.Should().BeEquivalentTo(expectedPickedMeasurement);
     }
 
     [Theory]
@@ -164,6 +170,8 @@ public class MeasurementPickerTests
             measurementJustBeforeEndOfFirstInterval,
             measurementJustAfterStartOfSecondInterval
         };
+        var expectedPickedMeasurement =
+            MeasurementFactory.CreateMeasurementWithTime(measurementJustBeforeEndOfFirstInterval, endOfInterval);
 
         // Act
         var pickedMeasurement = measurementPicker.PickLastOrDefaultFromInterval(
@@ -173,6 +181,6 @@ public class MeasurementPickerTests
 
         // Assert
         pickedMeasurement.Should().NotBeNull();
-        pickedMeasurement.Should().Be(measurementJustBeforeEndOfFirstInterval);
+        pickedMeasurement.Should().BeEquivalentTo(expectedPickedMeasurement);
     }
 }

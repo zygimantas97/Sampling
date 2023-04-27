@@ -9,7 +9,7 @@ public interface IMeasurementSampler
         IEnumerable<Measurement> measurements);
 }
 
-public class MeasurementSampler
+public class MeasurementSampler : IMeasurementSampler
 {
     private readonly IMeasurementFilter _measurementFilter;
     private readonly IMeasurementClassifier _measurementClassifier;
@@ -34,10 +34,10 @@ public class MeasurementSampler
     {
         var filteredMeasurements = _measurementFilter.FilterMeasurementsAfter(measurements, startOfSampling);
         var classifiedMeasurements = _measurementClassifier.ClassifyByType(filteredMeasurements);
-        var orderedMeasurements = classifiedMeasurements.ToDictionary(
+        var orderedMeasurements = classifiedMeasurements?.ToDictionary(
             group => group.Key,
             group => _measurementOrderer.OrderByTimeAscending(group.Value));
-        var selectedMeasurements = orderedMeasurements.ToDictionary(
+        var selectedMeasurements = orderedMeasurements?.ToDictionary(
             group => group.Key,
             group => _measurementSelector.Select(group.Value, startOfSampling));
         return selectedMeasurements;

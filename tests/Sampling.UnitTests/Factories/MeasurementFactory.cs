@@ -11,6 +11,13 @@ internal static class MeasurementFactory
         return measurement;
     }
 
+    public static Measurement CreateMeasurementWithTime(Measurement measurement, DateTime time) => new Measurement
+    {
+        Time = time,
+        Type = measurement.Type,
+        Value = measurement.Value
+    };
+
     public static IEnumerable<Measurement> CreateMeasurementsWithType(MeasurementType type)
     {
         var measurements = new Fixture().Create<List<Measurement>>();
