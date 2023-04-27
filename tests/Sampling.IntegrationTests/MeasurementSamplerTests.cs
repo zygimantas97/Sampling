@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-using Objectivity.AutoFixture.XUnit2.AutoMoq.Attributes;
-using Sampling.Model;
+﻿using Sampling.Model;
 
 namespace Sampling.IntegrationTests;
 
